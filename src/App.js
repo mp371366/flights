@@ -7,11 +7,14 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import Alert from 'react-bootstrap/Alert'
 
 const INTERVAL = 20000;
+const NONE = 'none';
+const ASC = 'asc';
+const DESC = 'desc';
 
 function App() {
     const [flights, setFlights] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [order, setOrder] = useState('none');
+    const [order, setOrder] = useState(NONE);
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
@@ -41,11 +44,11 @@ function App() {
 
     const orderFlights = (flights) => {
         switch (order) {
-            case 'desc':
+            case DESC:
                 return _.reverse(_.sortBy(flights, ['0']));
-            case 'asc':
+            case ASC:
                 return _.sortBy(flights, ['0']);
-            case 'none':
+            case NONE:
             default:
                 return flights;
         }
@@ -57,9 +60,9 @@ function App() {
                 <h1>Fligths</h1>
             </header>
             <ToggleButtonGroup type="radio" name={order} onChange={setOrder}>
-                <ToggleButton value={'asc'}>Ascending</ToggleButton>
-                <ToggleButton value={'desc'}>Descending</ToggleButton>
-                <ToggleButton value={'none'}>None</ToggleButton>
+                <ToggleButton value={ASC}>Ascending</ToggleButton>
+                <ToggleButton value={DESC}>Descending</ToggleButton>
+                <ToggleButton value={NONE}>None</ToggleButton>
             </ToggleButtonGroup>
             <main className="App-main">
                 {isError
